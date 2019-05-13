@@ -3,7 +3,7 @@
 This project is maintained by [Kyler Mintah](https://github.com/kylermintah) & [Ransford Antwi](https://github.com/masterford)
 
 # Overview
-![Image](docs/20190421_041634.jpg)
+![Image](docs/overview.jpg)
 
 We are building a miniature camera that serves as a wearable dietary documentation aid for patients with nutritional needs. The device uploads photos it takes to a webserver where the photos are filtered for food
 
@@ -81,8 +81,43 @@ We are still currently exporing a fix to this.
 
 ![Image](docs/WatchdogTrigger.PNG)
 
-Watchdog triggering
+## Week 4 (4/27/19)
+We fixed our task scheduling errors by multithreading the system and running the camera and IMU task in parallel. This helped prevent the starvation of certain tasks. The PCB was completed in time for the baseline demo, however we were not able to generate any images from the camera, not even the discolored ones we produced earlier which was quite a shock. We were able to integrate our project with Google Cloud Services via an MQTT bridge in order to send telemetry data as well as possibly store images on the cloud. We opted not to store the images on the cloud yet due to the fact that we would have to pay for cloud storage but it's certainly possible since we are already able to send telemetry data.
 
+![Image](docs/googlecloud.png)
+
+![Image](docs/cloud1.png)
+
+![Image](docs/cloud2.png)
+
+## Public demo + Results(5/9/19)
+We decided to change our camera module because we were still unsure as to why we were unable to generate any images. We also re-built the project on a protoboard due to potentially faulty connections on the PCB and we reassigned some of the camera pins on the ESP-32. These changes proved to be the difference maker and we were able to finally generate decent images.
+
+![Image](docs/kyler.jpg)
+
+We proceeded to tie up all the loose ends in time for the demo. This involved finally completing the deep sleep mode and triggering the ultra low processor (ULP) mode when the camera was laying flat for a certain period of time. In order to make this a truly wireless device, We added an RGB indicator to let us know what was happening, e.g. when it's connecting to wifi the camera flashes blue, when it's in ULP mode it flashes green, and it also flashes when it's taking an image. We also embedded 3 AA batteries within the casing of the device and used that as a power source.
+
+![Image](docs/battery.jpg)     ![Image](docs/battery2.jpg)
+
+We were also able to curl Watson's food recognition platform and use the images form our camera to recognise and distinguish between different foods!
+
+**Results**
+The image below was taken during the demo. We took a picture of pizza and Watson was able to categorize it as pizza with 78.8% accuracy.
+
+![Image](docs/pizza.dib)     ![Image](docs/pizzaWatson.png)
+
+The next image is a bowl of almonds and Watson was able to categorize it as an edible nut. not specifically almonds but it's still a great result.
+
+![Image](docs/almonds.jpg)    ![Image](docs/almonds2.dib) ![Image](docs/almondwatson.png)
+
+What happens when you take a picture of a non-food image? Watson tells us it's "non-food" which is perfect for out purposes.
+
+![Image](docs/people.dib)    ![Image](docs/peopleWatson.png) 
+
+
+**Final Prototype**
+
+![Image](docs/final1.jpg)    ![Image](docs/final2.jpg) 
 
 
 ### Support or Contact
